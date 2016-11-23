@@ -1,0 +1,17 @@
+extend ../common/layout
+block links
+	link(href="/css/student/exam-wait.css",rel="stylesheet")
+block content
+	.content
+		.container
+			p 对不起,考试时间未到
+			p 还有
+				h1
+					strong
+						span.day
+						span.hour
+						span.minute
+						span.second
+			input.timing(type="hidden",data-time="#{time}")
+block scripts
+	script(src="/js/student/exam-wait.js")

@@ -1,0 +1,65 @@
+/* 题目列表栏 */
+table{
+	margin: 10px auto;
+	width: 100%;
+}
+table td,table th{
+	height: 80px;
+	text-align: center;
+}
+table tr td button{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+/* 题目搜索栏 */
+.search-filter{
+	margin-top: 20px;
+	width: 100%;
+}
+.search-filter label{
+	margin-right: 10px;
+}
+
+/* 翻页栏 */
+.paging{
+	float: right;
+	margin-right: 150px;
+}
+.paging-item{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	list-style: none;
+	border: 1px solid gray;
+	cursor: pointer;
+}
+.current-page{
+	background: orange;
+	color: white;
+}
+
+/* 弹窗遮罩 */
+.mask{
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0,0.8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	color: #fff;
+	display: none;
+}
+.mask form{
+	width: 1000px;
+	margin: 100px auto;
+}
+.btn-group{
+	width: 70%;
+}
+.btn-group input{
+	margin-left: 230px;
+	margin-bottom: 20px;
+}

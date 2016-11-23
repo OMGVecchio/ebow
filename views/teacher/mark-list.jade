@@ -1,0 +1,31 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/mark-list.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter
+				label
+					input.form-control(placeholder="请输入试卷ID")
+				label
+					input.form-control(placeholder="请输入试卷关键字")
+				label
+					input.form-control.btn-primary(type="button",value="查询(暂不支持)")
+			table.table-striped.table-hover
+				thead
+					tr
+						th ID
+						th 卷名
+						th 时间
+						th 操作
+				tbody
+					- for exam in exams
+						tr
+							td(title="#{exam._id}") #{exam._id}
+							td(title="#{exam.title}") #{exam.title}
+							td(title="#{exam.time}") #{exam.time.toLocaleString()}
+							td
+								a.btn.btn-sm.btn-info(href="/teacher/mark-manage/:#{exam._id}") 批改
+			include ../common/pagination
+block scripts
+	script(src="/js/teacher/mark-list.js")

@@ -1,0 +1,63 @@
+extend ../common/layout
+block links
+	link(href="/css/student/info.css",rel="stylesheet")
+block content
+	.content
+		.container
+			.info-header
+				img.info-icon(src="http://placehold.it/150x150")
+				span.info-name #{user.name}
+				span.info-brief
+					span.brief-icon.glyphicon.glyphicon-pencil 
+					span.brief-content #{user.brief}(头像和简介暂未同步)
+			.info-content
+				.info-item
+					a.btn.btn-info 个人信息
+					.info-item-content
+						ul.info
+							li.info-line
+								span 姓名
+								span #{user.name}
+							li.info-line
+								span 班级
+								span #{user.class}
+							li.info-line
+								span 学号
+								span #{user._id}
+							li.info-line
+								span 学院
+								span #{user.college}
+							li.info-line
+								span.btn.btn-danger(data-toggle="modal",data-target="#myModal") 密码修改
+				.info-item
+					a.btn.btn-info(href="/student/score") 最近成绩(暂未同步)
+					.info-item-content
+						table.scores.table.table-striped.table-hover
+							tr
+								th 考试名
+								th 考试时间
+								th 分数
+							tr
+								td 大学计算机基础1
+								td 2016/5/5
+								td 98
+							tr
+								td 大学计算机基础2
+								td 2016/5/6
+								td 98
+				.info-item
+					a.btn.btn-info(href="/student/exam") 最近考试(暂未同步)
+					.info-item-content
+						table.exams.table.table-striped.table-hover
+							tr
+								th 考试名
+								th 考试时间
+							tr
+								td 大学计算机基础1
+								td 2016/5/5
+							tr
+								td 大学计算机基础2
+								td 2016/5/6
+	include ../common/infoModal
+block scripts
+	script(src="/js/student/info.js")

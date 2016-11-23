@@ -1,0 +1,116 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/question-manage.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter
+				label
+					select.form-control(name="type")
+						//- 同步渲染时保存select的类型
+						option(selected=questionType==0,value="0") 单选题
+						option(selected=questionType==1,value="1") 多选题
+						option(selected=questionType==2,value="2") 填空题
+						option(selected=questionType==3,value="3") 判断题
+						option(selected=questionType==4,value="4") 名词解释
+						option(selected=questionType==5,value="5") 简答题
+						option(selected=questionType==6,value="6") 应用题
+					//- 储存当前题目的类型号
+					input.question-type(type="hidden",value="#{questionType}")
+				label
+					input.form-control(name="id",placeholder="请输入试题ID")
+				label
+					input.form-control(name="title",placeholder="请输入试题关键字(暂不支持)")
+				label
+					input.form-control.btn-primary(type="submit",value="查询")
+				label
+					input.form-control.btn-warning.mask-open(type="button",value="新增")
+				label
+					input.form-control.btn-info(type="button",value="导入",disabled)
+			table.table-striped.table-hover
+				thead
+					tr
+						th ID
+						th 题目
+						//- 判断是否渲染"选项"
+						- var hasChoice = (questionType == 0 || questionType == 1 || questionType == undefined)
+						- if (hasChoice)
+							th 选项A
+							th 选项B
+							th 选项C
+							th 选项D
+						th 答案
+						th 操作
+				tbody
+					- for question in questions
+						tr
+							td.id-origin(title="#{question._id}") #{question._id}
+							td.title-origin(title="#{question.title}") #{question.title}
+							- if (hasChoice)
+								td.a-origin(title="#{question.a}") #{question.a}
+								td.b-origin(title="#{question.b}") #{question.b}
+								td.c-origin(title="#{question.c}") #{question.c}
+								td.d-origin(title="#{question.d}") #{question.d}
+							td.answer-origin(title="#{question.answer}") #{question.answer}
+							td
+								button.btn.btn-sm.btn-success.btn-update 修改
+								button.btn.btn-sm.btn-danger.btn-del(data-id="#{question._id}") 删除
+						tr.update-area
+							td #{question._id}
+							td
+								input.btn.btn-info.update.update-title(value="#{question.title}")
+							- if (hasChoice)
+								td
+									input.btn.btn-info.update.update-a(value="#{question.a}")
+								td
+									input.btn.btn-info.update.update-b(value="#{question.b}")
+								td
+									input.btn.btn-info.update.update-c(value="#{question.c}")
+								td
+									input.btn.btn-info.update.update-d(value="#{question.d}")
+							td
+								input.btn.btn-info.update.update-answer(value="#{question.answer}")
+							td
+								button.btn.btn-sm.button-success.btn-update-save(data-id="#{question._id}") 保存
+								button.btn.btn-sm.btn-warning.btn-close 关闭
+			include ../common/pagination
+	.mask
+		form.form-horizontal(role="form")
+			.form-group
+				label.col-sm-2.control-label 题目类型
+				.col-sm-10
+					select.form-control.add-type
+						option(selected,value="0") 单选题
+						option(value="1") 多选题
+						option(value="2") 填空题
+						option(value="3") 判断题
+						option(value="4") 名词解释
+						option(value="5") 简答题
+						option(value="6") 应用题
+			.form-group
+				label.col-sm-2.control-label 题目
+				.col-sm-10
+					input.form-control.add-title(type="text",placeholder="请输入题目")
+			.form-group.hasChoice
+				label.col-sm-2.control-label 选项A
+				.col-sm-10
+					input.form-control.add-a(type="text",placeholder="请输入选项A")
+				label.col-sm-2.control-label 选项B
+				.col-sm-10
+					input.form-control.add-b(type="text",placeholder="请输入选项B")
+				label.col-sm-2.control-label 选项C
+				.col-sm-10
+					input.form-control.add-c(type="text",placeholder="请输入选项C")
+				label.col-sm-2.control-label 选项D
+				.col-sm-10
+					input.form-control.add-d(type="text",placeholder="请输入选项D")
+			.form-group
+				label.col-sm-2.control-label 答案
+				.col-sm-10
+					input.form-control.add-answer(type="text",placeholder="请输入答案,多个答案以“,”分割")
+			.form-group.btn-group
+				input.form-control.btn-primary.add-reset(type="reset",value="重置")
+				input.form-control.btn-info.btn-add(type="button",value="提交")
+				input.mask-close.form-control.btn-info(type="button",value="关闭")
+block scripts
+	script(src="/js/teacher/question-manage.js")

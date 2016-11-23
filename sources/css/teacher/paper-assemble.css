@@ -1,0 +1,65 @@
+/* 自动组卷筛选栏 */
+#pa-filter{
+	position: fixed;
+	top: 60px;
+	height: 60px;
+	width: 100%;
+	background: orange;
+	z-index: 1000;
+}
+.filter-wrap{
+	width: 100%;
+	min-width: 1000px;
+	margin: 0 auto;
+	margin-top: 12px;
+}
+.filter-title{
+	font-family: "Microsoft Yahei";
+	font-size: 16px;
+}
+.assemble-start{
+	margin-left: 20px;
+}
+.filter-shadow{
+	box-shadow: 0 5px 20px 5px gray;
+}
+/* 自动组卷导航栏 */ 
+#pa-nav{
+	margin-top: 80px;
+	width: 100px;
+	height: 300px;
+	float: left;
+	background: skyblue;
+}
+input[type="checkbox"]{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+input[type="number"]{
+	width: 80px!important;
+	margin-right: 10px;
+}
+/* 主内容 */
+.paper-content{
+	min-height: 800px;
+	width: 900px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 80px;
+	padding-bottom: 10px;
+	margin: 0 auto;
+	background: #DDDDDD;
+}
+/* 组卷页面 */
+.input-group{
+	margin-bottom: 20px;
+}
+.question-nav{
+	margin-top: 10px;
+}
+.question-item{
+	margin-bottom: 10px;
+}
+.glyphicon-edit{
+	margin-left: 10px;
+}

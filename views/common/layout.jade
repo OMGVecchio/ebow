@@ -1,0 +1,12 @@
+doctype html
+html
+	head
+		include ./head
+		link(href="/css/common.css",rel="stylesheet")
+		block links
+	body
+		include ./header
+		block content
+		include ./footer
+script(src="/js/common.js")
+block scripts

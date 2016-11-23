@@ -1,0 +1,28 @@
+extend ../common/layout
+block links
+	link(href="/css/student/exam-list.css",rel="stylesheet")
+block content
+	.content
+		.container
+			table.table-striped.table-hover.exam-show
+				caption.yahei.h3.text-center 考试科目
+				thead
+					tr
+						th.text-center 考试ID
+						th.text-center 考试名
+						th.text-center 指导老师
+						th.text-center 时间
+						th.text-center 操作
+				tbody
+					- if (exams)
+						- for exam in exams
+							tr
+								td.text-center(title="#{exam._id}") #{exam._id}
+								td.text-center(title="#{exam.title}") #{exam.title}
+								td.text-center(title="#{exam.teacher}") #{exam.teacher}
+								td.text-center(title="#{exam.time}") #{exam.time.toLocaleString()}
+								td.text-center 
+									a.btn.btn-sm.btn-danger(href="/student/exam/:#{exam._id}") 考试
+			include ../common/pagination
+block scripts
+	script(src="/js/student/exam-list.js")

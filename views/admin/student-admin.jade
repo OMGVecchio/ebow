@@ -1,0 +1,75 @@
+extend ../common/layout
+block links
+	link(href="/css/admin/student-admin.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter(action="/admin/student-admin",method="GET")
+				label
+					input.form-control(name="id",placeholder="请输入学生ID")
+				label
+					input.form-control(name="name",placeholder="请输入学生姓名")
+				label
+					input.form-control.btn-primary(type="submit",value="查询")
+				label
+					input.form-control.btn-info.btn-add(type="button",value="新增",data-toggle="modal",data-target="#myModal")
+				label
+					input.form-control.btn-danger(type="button",value="导入",disabled)
+			table.table-striped.table-hover
+				thead
+					tr
+						th 学生ID
+						th 姓名
+						th 班级
+						th 学院
+						th 性别
+						th 操作
+				tbody
+					- if (students)
+						- for student in students
+							tr
+								td.id-origin #{student._id}
+								td.name-origin #{student.name}
+								td.class-origin #{student.class}
+								td.college-origin #{student.college}
+								td.gender-origin #{student.gender}
+								td
+									button.btn.btn-sm.btn-success.btn-update(data-toggle="modal",data-target="#myModal",data-id="#{student._id}") 修改
+									button.btn.btn-sm.btn-info.btn-reset(data-id="#{student._id}") 重置密码
+									button.btn.btn-sm.btn-danger.btn-del(data-id="#{student._id}") 删除
+			include ../common/pagination
+	#myModal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal") &times;
+					h4.yahei.text-danger 警告:请小心操作!
+				form.modal-body.info-area.form-horizontal
+					.form-group
+						label.col-sm-2 ID
+						.col-sm-10
+							input.id.form-control
+					.form-group
+						label.col-sm-2 姓名
+						.col-sm-10
+							input.name.form-control
+					.form-group
+						label.col-sm-2 班级
+						.col-sm-10
+							input.class.form-control
+					.form-group
+						label.col-sm-2 学院
+						.col-sm-10
+							input.college.form-control
+					.form-group
+						label.col-sm-2 性别
+						.col-sm-10
+							select.gender.form-control
+								option(value="男") 男
+								option(value="女") 女
+					input.hidden.reset-form(type="reset")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+					button.btn.btn-primary.btn-commit(type="button") 提交
+block scripts
+	script(src="/js/admin/student-admin.js")

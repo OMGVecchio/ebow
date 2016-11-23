@@ -1,0 +1,70 @@
+extend ../common/layout
+block links
+	link(href="/css/admin/teacher-admin.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter(action="/admin/teacher-admin",method="GET")
+				label
+					input.form-control(name="id",placeholder="请输入教师ID")
+				label
+					input.form-control(name="name",placeholder="请输入教师姓名")
+				label
+					input.form-control.btn-primary(type="submit",value="查询")
+				label
+					input.form-control.btn-info.btn-add(type="button",value="新增",data-toggle="modal",data-target="#myModal")
+				label
+					input.form-control.btn-danger(type="button",value="导入",disabled)
+			table.table-striped.table-hover
+				thead
+					tr
+						th 教师ID
+						th 姓名
+						th 学院
+						th 性别
+						th 操作
+				tbody
+					- if (teachers)
+						- for teacher in teachers
+							tr
+								td.id-origin #{teacher._id}
+								td.name-origin #{teacher.name}
+								td.college-origin #{teacher.college}
+								td.gender-origin #{teacher.gender}
+								td
+									button.btn.btn-sm.btn-success.btn-update(data-toggle="modal",data-target="#myModal",data-id="#{teacher._id}") 修改
+									button.btn.btn-sm.btn-info.btn-reset(data-id="#{teacher._id}") 重置密码
+									button.btn.btn-sm.btn-danger.btn-del(data-id="#{teacher._id}") 删除
+			include ../common/pagination
+	#myModal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal")
+						&times;
+					h4.yahei.text-danger 警告:请小心操作!
+				form.modal-body.info-area.form-horizontal
+					.form-group
+						label.col-sm-2 ID
+						.col-sm-10
+							input.id.form-control
+					.form-group
+						label.col-sm-2 姓名
+						.col-sm-10
+							input.name.form-control
+					.form-group
+						label.col-sm-2 学院
+						.col-sm-10
+							input.college.form-control
+					.form-group
+						label.col-sm-2 性别
+						.col-sm-10
+							select.gender.form-control
+								option(value="男") 男
+								option(value="女") 女
+					input.hidden.reset-form(type="reset")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+					button.btn.btn-primary.btn-commit(type="button") 提交
+block scripts
+	script(src="/js/admin/teacher-admin.js")

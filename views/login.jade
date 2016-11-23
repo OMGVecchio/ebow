@@ -1,0 +1,36 @@
+doctype html
+html
+	head
+		include ./common/head
+		link(href="/css/login.css",rel="stylesheet")
+	body
+		.container
+			.row
+				.col-sm-6
+					img.logo-col(src="/imgs/common/jg-logo.png")
+				.col-sm-6
+					form.login-box(action="/login/check",method="post")
+						fieldset
+							legend
+								img.logo-uni(src="/imgs/common/logo.png")
+								h2 大学计算机基础在线考试系统
+							.form-group
+								label 账号：
+									- if (data == "account-error")
+										span.text-danger (账号不存在)
+								//- glyphicon 需要在一个独立的元素里,否则会下沉
+								.input-group
+									span.input-group-addon
+										span.glyphicon.glyphicon-user
+									input.form-control.login-input(name="account",type="text",placeholder="请输入账号")
+							.form-group
+								label 密码：
+									- if (data == "password-error")
+										span.text-danger (密码错误)
+								.input-group
+									.login-cartoon-front
+									span.input-group-addon
+										span.glyphicon.glyphicon-lock
+									input.form-control.login-input(name="password",type="password",placeholder="请输入密码")
+							input.form-control.btn-primary(id="submit",type="submit",value="登录")
+script(src="/js/login.js")

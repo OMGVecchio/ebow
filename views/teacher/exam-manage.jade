@@ -1,0 +1,90 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/exam-manage.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter(action="/teacher/exam-manage",method="GET")
+				label
+					select.form-control(name="examId")
+						- if (exams.length !== 0)
+							- each exam,index in exams
+								- if (examId == exam._id)
+									option(selected,value="#{exam._id}") #{exam.title}
+								- else
+									option(value="#{exam._id}") #{exam.title}
+						- else
+							option 没有即将开始的考试
+				label
+					input.form-control.btn.btn-info(type="submit",value="查询")
+				label
+					input.form-control.btn.btn-danger.btn-over(type="button",value="已测完",data-id="#{examId}")
+				label
+					input.form-control.btn.btn-warning.mask-open(type="button",value="添加考试资格学生")
+			table.table-striped.table-hover
+				thead
+					tr
+						th 学号
+						th 姓名
+						th 班级
+						th 学院
+						th 操作
+				tbody
+					- if (students)
+						- for student in students
+							tr
+								td #{student._id}
+								td #{student.name}
+								td #{student.class}
+								td #{student.college}
+								td
+									button.btn.btn-sm.btn-danger.btn-del(data-id="#{student._id}") 删除
+			include ../common/pagination
+	.mask
+		.form-horizontal(role="form")
+			p 暂时仅支持学号增加
+			.form-group
+				label.col-sm-2.control-label 学号
+				.col-sm-10
+					input.form-control.add-id(type="text",placeholder="请输入学号,最高优先级")
+			.form-group
+				label.col-sm-2.control-label 姓名
+				.col-sm-10
+					input.form-control(.add-nametype="text",placeholder="请输入姓名,中等优先级")
+			.form-group
+				label.col-sm-2.control-label 班级
+				.col-sm-10
+					input.form-control.add-class(type="text",placeholder="请输入班级,最低优先级")
+			.form-group.btn-group
+				input.form-control.btn-info.btn-add(type="button",value="增加")
+				input.form-control.btn-info.mask-close(type="button",value="关闭")
+		//- 	.form-group.btn-group
+		//- 		input.form-control.btn-info(type="button",value="查询")
+		//- 		input.mask-close.form-control.btn-info(type="button",value="关闭")
+		//- table.student-list.table-bordered
+		//- 	thead
+		//- 		tr
+		//- 			th 学号
+		//- 			th 姓名
+		//- 			th 班级
+		//- 			th 学院
+		//- 			th 性别
+		//- 			th 操作
+		//- 	tbody
+		//- 		tr
+		//- 			td 2012211193
+		//- 			td vecchio
+		//- 			td 0311203
+		//- 			td 经济管理学院
+		//- 			td 男
+		//- 			td
+		//- 				button.btn-danger.btn-add 增加
+		ul.paging
+			li.paging-item <<
+			li.paging-item.current-page 1
+			li.paging-item 2
+			li.paging-item 3
+			li.paging-item >>
+	input.exam-id(type="hidden",value="#{examId}")
+block scripts
+	script(src="/js/teacher/exam-manage.js")

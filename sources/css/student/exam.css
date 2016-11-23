@@ -1,0 +1,127 @@
+/* 全局样式 */
+li{
+	list-style: none;
+}
+
+/* 总体 */
+form.container{
+	background: lightcyan;
+	min-height: 800px;
+}
+.exam-title{
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	background: rgba(0,0,0,0);
+	border: 0;
+	outline: none;
+}
+.question-catagory {
+	width: 100%;
+}
+.question-catagory-title{
+	clear: both;
+}
+
+/* 选择题 */
+.question-select-title{
+	width: 1100px;
+	word-break: break-all;
+}
+.question-select{
+	margin-left: 20px;
+}
+.answer-item{
+	width: 500px;
+	height: auto;
+	line-height: 22px;
+	font-size: 14px;
+	word-break: break-all;
+}
+.checked{
+	color: red;
+}
+input[type="radio"]{
+	margin: 0;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+input[type="checkbox"]{
+	margin: 0;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+/* 填空题 */
+.blank-answer{
+	border: 0;
+	border-bottom: 1px solid black;
+	outline: none;
+	text-align: center;
+	background: rgba(0,0,0,0);
+}
+
+/* 判断题 */
+.judgement-question input{
+	display: inline-block;
+	width: 50px;
+}
+.judgement-anwer-t::before{
+	content: "对";
+}
+.judgement-anwer-f::before{
+	content: "错";
+}
+
+/* 作答答题 */
+.definition-answer,.saq-answer,.application-answer{
+	width: 1000px;
+	height: auto;
+	min-height: 100px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+/* 标题 */
+.question-catagory-title{
+	margin-bottom: 10px;
+}
+span.badge{
+	margin-left: 10px;
+}
+
+/* 考试信息栏 */
+.exam-info{
+	position:fixed;
+	top: 220px;
+	right: 40px;
+	width: 200px;
+}
+.question-nav{
+	padding: 25px;
+	padding-top: 0;
+}
+.question-item{
+	margin: 1px;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	list-style: none;
+	text-align: center
+}
+.question-choice{
+	width: 100%;
+}
+.question-choice tr{
+	width: 100%;
+}
+.question-choice td{
+	width: 50%;
+}
+.total,.duration{
+	margin-left: 20px;
+}

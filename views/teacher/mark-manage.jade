@@ -1,0 +1,34 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/mark-manage.css",rel="stylesheet")
+block content
+	.content
+		.container
+			table.table-striped.table-hover
+				thead
+					tr
+						th 学号
+						th 姓名
+						th 班级
+						th 学院
+						th 分数
+						th 操作
+				tbody
+					- if (students)
+						- for student in students
+							tr
+								td(title="#{student._id}") #{student._id}
+								td(title="#{student.name}") #{student.name}
+								td(title="#{student.class}") #{student.class}
+								td(title="#{student.college}") #{student.college}
+								td(title="#{student.mark}") #{student.mark}
+								td
+									- if (student.markId === undefined)
+										a.btn.btn-sm.btn-warning 未答题
+									- else if (student.mark == '-1')
+										a.btn.btn-sm.btn-info(href="/teacher/mark-modify?id=#{student.markId}") 批改
+									- else
+										a.btn.btn-sm.btn-danger(href="/teacher/mark-modify?id=#{student.markId}") 已批改
+			include ../common/pagination
+block scripts
+	script(src="/js/teacher/mark-manage.js")

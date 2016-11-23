@@ -1,0 +1,46 @@
+header
+	.container
+		- if (userType == 2)
+			a.title-wrap(href="/admin/student-admin")
+				h2.title 大学计算机基础在线考试系统
+		- else if (userType == 1)
+			a.title-wrap(href="/teacher/info")
+				h2.title 大学计算机基础在线考试系统
+		- else if (userType == 0)
+			a.title-wrap(href="/student/info")
+				h2.title 大学计算机基础在线考试系统
+		ul.nav.nav-tabs
+			//- 根据不同的路由请求相对应的参数
+			- if (userType == 0)
+				- var tabs = ['个人信息', '成绩查询', '考试中心']
+				- var route = ['/student/info', '/student/score', '/student/exam']
+			- else if (userType == 1)
+				- var tabs = ['个人信息', '试卷管理', '考试管理', "试题管理", "成绩管理"]
+				- var route = ['/teacher/info', '/teacher/paper-manage', '/teacher/exam-manage', "/teacher/question-manage", "/teacher/mark-manage"]
+			- else
+				- var tabs = ['学生管理', '教师管理']
+				- var route = ['/admin/student-admin', '/admin/teacher-admin']
+			//- header页面渲染
+			each value,index in tabs
+				- if (index == pageItem)
+					li.nav-item.active 
+						a(href="#{route[index]}") #{value}
+				- else
+					li.nav-item
+						a(href="#{route[index]}") #{value}
+		.user-info
+			- if (userType == 2)
+				a.user-name.overflow.pull-left(title="#{user.name}",href="/admin/student-admin")
+					span.glyphicon.glyphicon-user 
+					span.name-content #{user.name}
+			- else if (userType == 1)
+				a.user-name.overflow.pull-left(title="#{user.name}",href="/teacher/info")
+					span.glyphicon.glyphicon-user 
+					span.name-content #{user.name}
+			- else if (userType == 0)
+				a.user-name.overflow.pull-left(title="#{user.name}",href="/student/info")
+					span.glyphicon.glyphicon-user 
+					span.name-content #{user.name}
+			a.logout.pull-left(href="/logout")
+				span.glyphicon.glyphicon-off 
+				span.out 注销

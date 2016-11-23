@@ -1,0 +1,22 @@
+#myModal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal") &times;
+					h3.text-danger.yahei 警告:请小心更改密码!
+				.modal-body
+					.form-group
+						label.col-sm-3 请输入原密码
+						.col-sm-9
+							input.form-control.pw-origin(type="password",placeholder="原密码")
+					.form-group
+						label.col-sm-3 请输入新密码
+						.col-sm-9
+							input.form-control.pw-new(type="password",placeholder="新密码")
+					.form-group
+						label.col-sm-3 请确认新密码
+						.col-sm-9
+							input.form-control.pw-confirm(type="password",placeholder="确认新密码")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+					button.btn.btn-primary.btn-submit(type="button") 提交更改

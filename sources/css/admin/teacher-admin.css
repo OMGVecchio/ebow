@@ -1,0 +1,22 @@
+/* 题目列表栏 */
+table{
+	margin: 10px auto;
+	width: 100%;
+}
+table td,table th{
+	height: 50px;
+	text-align: center;
+}
+table tr td button{
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+/* 题目搜索栏 */
+.search-filter{
+	margin-top: 20px;
+	width: 100%;
+}
+.search-filter label{
+	margin-right: 10px;
+}

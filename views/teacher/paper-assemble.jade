@@ -1,0 +1,137 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/paper-assemble.css",rel="stylesheet")
+block content
+	.content
+		.container
+			//- ul#pa-nav
+			//- 	li 单选题
+			//- 	li 多选题
+			//- 	li 填空题
+			//- 	li 判断题
+			//- 	li 名词解释
+			//- 	li 简答题
+			//- 	li 应用题
+			form.paper-content(action="/teacher/paper-save",method="POST")
+				dl.paper
+					h1.text-danger 之后,随机生成出来的试题可以进行手动更替,而且大题的每道题分值可以不同,暂未实现
+					- if (data)
+						dt
+							.input-group.col-sm-6.pull-left
+								span.input-group-addon
+									span.glyphicon.glyphicon-list-alt
+								input.form-control(name="title",type="text",placeholder="试卷名")
+							.input-group.col-sm-offset-1.col-sm-5.pull-left
+								span.input-group-addon
+									span.glyphicon.glyphicon-time
+								input.form-control(name="duration",type="number",placeholder="时长",data-toggle="tooltip",data-placement="right",title="分钟")
+						dd
+							- if (data.singleChoice)
+								.question-title
+									h4.yahei.text-info 单选题
+									input.form-control(name="sc-point",type="number",placeholder="分值")
+								input.sc-count(type="hidden",value="#{data.singleChoice.length}")
+								ol.question-nav
+									- each singleChoice,index in data.singleChoice
+										li.question-item #{singleChoice.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="single-choice-#{index}",value="#{singleChoice.id}")
+							- if (data.multipleChoice)
+								.question-title
+									h4.yahei.text-info 多选题
+									input.form-control(name="mc-point",type="number",placeholder="分值")
+								input.mc-count(type="hidden",value="#{data.multipleChoice.length}")
+								ol.question-nav
+									- each multipleChoice,index in data.multipleChoice
+										li.question-item #{multipleChoice.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="multiple-choice-#{index}",value="#{multipleChoice.id}")
+							- if (data.blank)
+								.question-title
+									h4.yahei.text-info 填空题
+									input.form-control(name="bl-point",type="number",placeholder="分值")
+								input.blank-count(type="hidden",value="#{data.blank.length}")
+								ol.question-nav
+									- each blank,index in data.blank
+										li.question-item #{blank.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="blank-#{index}",value="#{blank.id}")
+							- if (data.judgement)
+								.question-title
+									h4.yahei.text-info 判断题
+									input.form-control(name="ju-point",type="number",placeholder="分值")
+								input.judgement-count(type="hidden",value="#{data.judgement.length}")
+								ol.question-nav
+									- each judgement,index in data.judgement
+										li.question-item #{judgement.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="judgement-#{index}",value="#{judgement.id}")
+							- if (data.definition)
+								.question-title
+									h4.yahei.text-info 名词解释
+									input.form-control(name="de-point",type="number",placeholder="分值")
+								input.definition-count(type="hidden",value="#{data.definition.length}")
+								ol.question-nav
+									- each definition,index in data.definition
+										li.question-item #{definition.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="definition-#{index}",value="#{definition.id}")
+							- if (data.saq)
+								.question-title
+									h4.yahei.text-info 简答题
+									input.form-control(name="sa-point",type="number",placeholder="分值")
+								input.saq-count(type="hidden",value="#{data.saq.length}")
+								ol.question-nav
+									- each saq,index in data.saq
+										li.question-item #{saq.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="saq-#{index}",value="#{saq.id}")
+							- if (data.application)
+								.question-title
+									h4.yahei.text-info 应用题
+									input.form-control(name="ap-point",type="number",placeholder="分值")
+								input.application-count(type="hidden",value="#{data.application.length}")
+								ol.question-nav
+									- each application,index in data.application
+										li.question-item #{application.title}
+											span.glyphicon.glyphicon-edit
+											input(type="hidden",name="application-#{index}",value="#{application.id}")
+							.form-group
+								label.yahei.h4 总分
+									input.btn.btn-primary(name="totalMark",value="0")
+							input.form-control.btn.btn-info(type="submit",value="保存")
+	form#pa-filter.form-inline(role="form",action="/teacher/paper-assemble",method="POST")
+		.filter-wrap
+			.form-group
+				label.filter-title(for="single-choice") 单选题
+				input(type="checkbox",name="single-choice")
+				input.form-control(type="number",name="single-choice-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="multiple-choice") 多选题
+				input(type="checkbox",name="multiple-choice")
+				input.form-control(type="number",name="multiple-choice-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="blank") 填空题
+				input(type="checkbox",name="blank")
+				input.form-control(type="number",name="blank-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="judgement") 判断题
+				input(type="checkbox",name="judgement")
+				input.form-control(type="number",name="judgement-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="definition") 名词解释
+				input(type="checkbox",name="definition")
+				input.form-control(type="number",name="definition-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="saq") 简答题
+				input(type="checkbox",name="saq")
+				input.form-control(type="number",name="saq-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.filter-title(for="application") 应用题
+				input(type="checkbox",name="application")
+				input.form-control(type="number",name="application-number",role="button",disabled="true",placeholder="题数")
+			.form-group
+				label.src-only(for="assemble")
+				input.form-control.btn-success.assemble-start(type="submit",value="自动组卷",role="button")
+block scripts
+	script(src="/js/teacher/paper-assemble.js")

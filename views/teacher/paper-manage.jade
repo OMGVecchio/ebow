@@ -1,0 +1,41 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/paper-manage.css",rel="stylesheet")
+block content
+	.content
+		.container
+			form.search-filter
+				label
+					input.form-control(placeholder="请输入试卷ID")
+				label
+					input.form-control(placeholder="请输入试卷关键字")
+				label
+					input.form-control.btn-primary(type="button",value="查询(暂不支持)")
+				label
+					a.form-control.btn-info(href="/teacher/paper-assemble") 组卷
+			table.table-striped.table-hover
+				thead
+					tr
+						th ID
+						th 卷名
+						th 时长(分钟)
+						th 总分
+						th 操作
+				tbody
+					- for paper in papers
+						tr
+							td(title="#{paper._id}") #{paper._id}
+							td(title="#{paper.title}") #{paper.title}
+							td(title="#{paper.duration}") #{paper.duration}
+							td(title="#{paper.totalMark}") #{paper.totalMark}
+							td
+								- if (paper.isPublished)
+									button.btn.btn-sm.btn-info 已发布
+								- else
+									input.publish-time(type="datetime-local")
+									button.btn.btn-sm.btn-primary.btn-publish(data-title="#{paper.title}",data-id="#{paper._id}") 发布
+									button.btn.btn-sm.btn-success.btn-update 修改(暂不支持)
+									button.btn.btn-sm.btn-danger 删除(暂不支持)
+			include ../common/pagination
+block scripts
+	script(src="/js/teacher/paper-manage.js")

@@ -1,0 +1,158 @@
+extend ../common/layout
+block links
+	link(href="/css/teacher/mark-modify.css",rel="stylesheet")
+block content
+	.content
+		h2 暂时还没能实现每道题目的成绩保存,待修改
+		form.container(role="form")
+			h2.exam-title #{questions.title}
+			- var questionSeq = 0 
+			- if (questions.singleChoice)
+				dl.question-catagory
+					dtdt.btn.btn-info.question-catagory-title.yahei 单选题
+					dd
+						input.sc-point(type="hidden",value="#{questions.singleChoicePoint}")
+						ul
+							- for question in questions.singleChoice
+								li.sc-wrap
+									label #{++questionSeq}、#{question.title}
+									input.answer-sc-origin(type="hidden",value="#{question.answer}")
+									- for answer in mark.singleChoice
+										- if (answer.questionId == question._id)
+											input.answer-sc(type="hidden",value="#{answer.answer}")
+									table.question-choice
+										tr
+											td
+												span.answer-item(title="${question.a}")
+													input(type="radio",name="sc-#{question._id}",value="0")
+													span.answer-content A: #{question.a}
+											td
+												span.answer-item(title="${question.b}")
+													input(type="radio",name="sc-#{question._id}",value="1")
+													span.answer-content B: #{question.b}
+										tr
+											td
+												span.answer-item(title="${question.c}")
+													input(type="radio",name="sc-#{question._id}",value="2")
+													span.answer-content C: #{question.c}
+											td
+												span.answer-item(title="${question.d}")
+													input(type="radio",name="sc-#{question._id}",value="3")
+													span.answer-content D: #{question.d}
+			- if (questions.multipleChoice)
+				dl.question-catagory 
+					dtdt.btn.btn-info.question-catagory-title.yahei 多选题
+					dd
+						input.mc-point(type="hidden",value="#{questions.multipleChoicePoint}")
+						ul
+							- for question in questions.multipleChoice
+								li.mc-wrap
+									label #{++questionSeq}、#{question.title}
+									input.answer-mc-origin(type="hidden",value="#{question.answer}")
+									- for answer in mark.multipleChoice
+										- if (answer.questionId == question._id)
+											input.answer-mc(type="hidden",value="#{answer.answer}")
+									table.question-choice
+										tr
+											td
+												span.answer-item(title="${question.a}")
+													input(type="checkbox",name="mc-#{question._id}",value="0")
+													span.answer-content A: #{question.a}
+											td
+												span.answer-item(title="${question.b}")
+													input(type="checkbox",name="mc-#{question._id}",value="1")
+													span.answer-content B: #{question.b}
+										tr
+											td
+												span.answer-item(title="${question.c}")
+													input(type="checkbox",name="mc-#{question._id}",value="2")
+													span.answer-content C: #{question.c}
+											td
+												span.answer-item(title="${question.d}")
+													input(type="checkbox",name="mc-#{question._id}",value="3")
+													span.answer-content D: #{question.d}
+			- if (questions.blank)
+				dl.question-catagory
+					dt.btn.btn-info.question-catagory-title.yahei 填空题
+					.label.label-success 分值:#{questions.blankPoint}
+					dd
+						ul
+							- for question in questions.blank
+								li
+									input.answer-blank-origin(type="hidden",value="#{question.answer}")
+									.blank-question
+										label #{++questionSeq}、 #{question.title}
+										- for answer in mark.blank
+											- if (answer.questionId == question._id)
+												input.answer-blank(type="hidden",value="#{answer.answer}")
+										span
+											input.blank-answer(type="text",name="blank-#{question._id}",disabled)
+										input.answer-mark(type="number",placeholder="分数",title="正确答案",data-toggle="popover",data-trigger="focus",data-placement="top",data-content="#{question.answer}")
+			- if (questions.judgement)
+				dl.question-catagory
+					dt.dt.btn.btn-info.question-catagory-title.yahei 判断题
+					dd
+						input.judgement-point(type="hidden",value="#{questions.judgementPoint}")
+						ul
+							- for question in questions.judgement
+								li.judgement-wrap
+									input.answer-judgement-origin(type="hidden",value="#{question.answer}")
+									.judgement-question 
+										label #{++questionSeq}、#{question.title}
+										- for answer in mark.judgement
+											- if (answer.questionId == question._id)
+												input.answer-judgement(type="hidden",value="#{answer.answer}")
+										input.judgement-anwer-t(type="radio",name="judgement-#{question._id}",value="0")
+										input.judgement-anwer-f(type="radio",name="judgement-#{question._id}",value="1")
+			- if (questions.definition)
+				dl.question-catagory
+					dt.dt.btn.btn-info.question-catagory-title.yahei 名词解释
+					.label.label-success 分值:#{questions.definitionPoint}
+					dd
+						ul
+							- for question in questions.definition
+								li
+									input.answer-definition-origin(type="hidden",value="#{question.answer}")
+									.definition-question 
+										label #{++questionSeq}、#{question.title}
+										input.answer-mark(type="number",placeholder="分数",title="正确答案",data-toggle="popover",data-trigger="focus",data-placement="top",data-content="#{question.answer}")
+									- for answer in mark.definition
+										- if (answer.questionId == question._id)
+											input.answer-definition(type="hidden",value="#{answer.answer}")
+									textarea.form-control.definition-answer(type="text",name="definition-#{question._id}",disabled)
+			- if (questions.saq)
+				dl.question-catagory
+					dt.dt.btn.btn-info.question-catagory-title.yahei 简答题
+					.label.label-success 分值:#{questions.saqPoint}
+					dd
+						ul
+							- for question in questions.saq
+								li
+									input.answer-saq-origin(type="hidden",value="#{question.answer}")
+									.saq-question 
+										label #{++questionSeq}、#{question.title}
+										input.answer-mark(type="number",placeholder="分数",title="正确答案",data-toggle="popover",data-trigger="focus",data-placement="top",data-content="#{question.answer}")
+									- for answer in mark.saq
+										- if (answer.questionId == question._id)
+											input.answer-saq(type="hidden",value="#{answer.answer}")
+									textarea.form-control.saq-answer(type="text",name="saq-#{question._id}",disabled)
+			- if (questions.application)
+				dl.question-catagory
+					dt.dt.btn.btn-info.question-catagory-title.yahei 应用题
+					.label.label-success 分值:#{questions.applicationPoint}
+					dd
+						ul
+							- for question in questions.application
+								li
+									input.answer-application-origin(type="hidden",value="#{question.answer}")
+									.appliaction-question 
+										label #{++questionSeq}、#{question.title}
+										input.answer-mark(type="number",placeholder="分数",title="正确答案",data-toggle="popover",data-trigger="focus",data-placement="top",data-content="#{question.answer}")
+									- for answer in mark.application
+										- if (answer.questionId == question._id)
+											input.answer-application(type="hidden",value="#{answer.answer}")
+									textarea.form-control.application-answer(type="text",name="appliaction-#{question._id}",disabled)
+			input.mark-id(type="hidden",value="#{mark._id}")
+			input.form-control.btn.btn-danger.mark-commit(type="button",value="确认")
+block scripts
+	script(src="/js/teacher/mark-modify.js")
